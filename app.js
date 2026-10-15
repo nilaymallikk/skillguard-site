@@ -27,17 +27,15 @@ document.querySelectorAll('[data-copy]').forEach((btn) => {
 // ── reveal on scroll ─────────────────────────────────────────
 const revealTargets = [
   '.verdict',
-  '.strip__grid > div',
   '.shead',
-  '.rail li',
+  '.flow li',
   '.analyzers',
   '.table-scroll',
   '.filter',
   '.panel',
   '.cmd',
-  '.trust > div',
-  '.callout',
-  '.foot__grid > *',
+  '.closer',
+  '.foot__in > *',
 ];
 
 const targets = [...document.querySelectorAll(revealTargets.join(','))];

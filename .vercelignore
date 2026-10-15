@@ -1,6 +1,7 @@
-# keep dev-only files and credentials out of the public deployment
+# keep dev-only files, credentials and the unprocessed source logo out of the deployment
 check.mjs
 README.md
 .env*
 .gitignore
 .vercel
+SkillGuardLogo.png

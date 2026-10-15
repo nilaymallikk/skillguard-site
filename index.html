@@ -4,27 +4,28 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SkillGuard: read a skill before you trust it</title>
-<meta name="description" content="SkillGuard reads an agent skill, MCP server or extension and tells you what it found before anything runs. 38 rules, ten categories, one risk score. Nothing executes. No network unless you ask.">
-<meta name="theme-color" content="#0a0b0d">
+<meta name="description" content="A static scanner for agent skills, MCP servers and extensions. 38 rules, one risk score, and nothing runs. Point it at a folder and read the verdict before you install.">
+<meta name="theme-color" content="#fdf8f1">
 <link rel="canonical" href="https://github.com/NilLab-agi/SkillGuard">
+<link rel="icon" href="assets/logo-96.png">
+<link rel="apple-touch-icon" href="assets/logo-256.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="SkillGuard: read a skill before you trust it">
-<meta property="og:description" content="A static security scanner for agent skills, MCP servers and extensions. Nothing executes, and nothing leaves your machine unless you ask.">
+<meta property="og:description" content="38 rules, one risk score, and nothing runs. Read the verdict before you install.">
 <meta property="og:url" content="https://github.com/NilLab-agi/SkillGuard">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff9d4d' d='M12 1.8 21 5v7.2c0 5.1-3.5 8.9-9 10.6-5.5-1.7-9-5.5-9-10.6V5l9-3.2Z'/%3E%3Cpath fill='%230a0b0d' d='M11 7h2v6h-2zm0 8h2v2h-2z'/%3E%3C/svg%3E">
+<meta property="og:image" content="assets/logo-256.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="tape" aria-hidden="true"></div>
 
 <header class="nav">
-  <div class="nav__in">
+  <div class="wrap nav__in">
     <a class="brand" href="#top">
-      <svg class="brand__mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.8 21 5v7.2c0 5.1-3.5 8.9-9 10.6-5.5-1.7-9-5.5-9-10.6V5l9-3.2Z" fill="currentColor" opacity=".18"/><path d="M12 1.8 21 5v7.2c0 5.1-3.5 8.9-9 10.6-5.5-1.7-9-5.5-9-10.6V5l9-3.2Zm0 2.2L5 6.4v5.8c0 3.9 2.6 6.9 7 8.3 4.4-1.4 7-4.4 7-8.3V6.4L12 4Z" fill="currentColor"/><path d="M11 7h2v6h-2zm0 8h2v2h-2z" fill="currentColor"/></svg>
+      <img class="brand__logo" src="assets/logo-96.png" srcset="assets/logo-96.png 1x, assets/logo-256.png 2x" width="34" height="34" alt="">
       <span class="brand__name">SkillGuard</span>
     </a>
     <nav class="nav__links" aria-label="Sections">
@@ -33,7 +34,10 @@
       <a href="#ship">Ship it</a>
     </nav>
     <div class="nav__end">
-      <a class="btn btn--sm btn--dark" href="https://github.com/NilLab-agi/SkillGuard">GitHub ↗</a>
+      <a class="btn btn--github" href="https://github.com/NilLab-agi/SkillGuard">
+        <svg class="gh" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        GitHub
+      </a>
     </div>
   </div>
 </header>
@@ -41,30 +45,34 @@
 <main id="main">
 <div id="top"></div>
 
-<!-- ─────────────────────────── hero ─────────────────────────── -->
+<!-- hero -->
 <section class="hero">
   <div class="wrap hero__grid">
     <div class="hero__copy">
-      <p class="eyebrow">Static analysis · zero execution</p>
-      <h1>Read the skill<br>before you<br>trust it.</h1>
+      <p class="label">Static analysis, zero execution</p>
+      <h1>Read the skill before you trust&nbsp;it.</h1>
       <p class="lede">
         An agent skill is a stranger's instructions running with your credentials. SkillGuard reads
-        it first: the markdown, the Python, the JSON and the YAML. Then it hands back the score, the
-        severity, and every line that caused it.
+        the markdown, parses the Python, checks the JSON and YAML, and hands back a verdict with the
+        line number that caused it.
       </p>
 
       <div class="cmd" data-copy-root>
-        <div class="cmd__bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="cmd__title">bash</span>
+        <div class="cmd__bar">
+          <span class="cmd__title">bash</span>
           <button class="copy" type="button" data-copy="#install-cmd" aria-label="Copy install commands">copy</button>
         </div>
-        <pre id="install-cmd"><code><span class="c-dim"># needs uv: https://docs.astral.sh/uv/</span>
+        <pre id="install-cmd"><code><span class="c-dim"># needs uv (docs.astral.sh/uv)</span>
 git clone https://github.com/NilLab-agi/SkillGuard
 <span class="c-kw">cd</span> SkillGuard &amp;&amp; uv sync --all-extras
 uv run skillguard scan ./that-skill-you-found/</code></pre>
       </div>
 
       <div class="hero__cta">
-        <a class="btn btn--primary" href="https://github.com/NilLab-agi/SkillGuard">Read the source</a>
+        <a class="btn btn--solid" href="https://github.com/NilLab-agi/SkillGuard">
+          <svg class="gh" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+          Get it on GitHub
+        </a>
         <a class="btn" href="#rules">See what gets caught</a>
       </div>
 
@@ -77,57 +85,80 @@ uv run skillguard scan ./that-skill-you-found/</code></pre>
     </div>
 
     <aside class="verdict" aria-label="Example scan output">
-      <div class="verdict__tape" aria-hidden="true"></div>
       <div class="verdict__head">
         <span class="verdict__path">skillguard scan ./that-skill/</span>
-        <span class="verdict__badge">DO NOT INSTALL</span>
+        <span class="tag tag--critical">DO NOT INSTALL</span>
       </div>
       <div class="verdict__score">
         <span class="verdict__num">100</span><span class="verdict__of">/100</span>
         <div class="verdict__meta">
-          <span class="sev sev--critical">CRITICAL</span>
+          <span class="tag tag--critical">CRITICAL</span>
           <span class="verdict__findings">48 findings</span>
         </div>
       </div>
-      <div class="meter" role="img" aria-label="Score 100 of 100">
-        <span class="meter__fill" style="--v:100%"></span>
-      </div>
+      <ol class="gauge" aria-label="Score 100 out of 100">
+        <li class="on"></li><li class="on"></li><li class="on"></li><li class="on"></li><li class="on"></li>
+        <li class="on"></li><li class="on"></li><li class="on"></li><li class="on"></li><li class="on"></li>
+      </ol>
       <ul class="verdict__list">
-        <li><span class="rid">P1</span><span class="sev-dot sev-dot--high" title="HIGH"></span>Instruction override attempt<em>SKILL.md:12</em></li>
-        <li><span class="rid">AR1</span><span class="sev-dot sev-dot--high" title="HIGH"></span>Refusal suppression<em>SKILL.md:31</em></li>
-        <li><span class="rid">SC2</span><span class="sev-dot sev-dot--high" title="HIGH"></span>Remote script piped into a shell<em>SKILL.md:44</em></li>
-        <li><span class="rid">E2</span><span class="sev-dot sev-dot--high" title="HIGH"></span>Environment variable harvesting<em>scripts/sync.py:8</em></li>
-        <li><span class="rid">PE3</span><span class="sev-dot sev-dot--high" title="HIGH"></span>Credential file access<em>scripts/sync.py:14</em></li>
+        <li><span class="rid">P1</span>Instruction override attempt<em>SKILL.md:12</em></li>
+        <li><span class="rid">AR1</span>Refusal suppression<em>SKILL.md:31</em></li>
+        <li><span class="rid">SC2</span>Remote script piped into a shell<em>SKILL.md:44</em></li>
+        <li><span class="rid">E2</span>Environment variable harvesting<em>scripts/sync.py:8</em></li>
+        <li><span class="rid">PE3</span>Credential file access<em>scripts/sync.py:14</em></li>
       </ul>
-      <p class="verdict__foot">Illustrative output. The scan is read-only: no skill code was executed.</p>
+      <p class="verdict__foot">Illustrative output. The scan is read only. No skill code was executed.</p>
     </aside>
   </div>
 </section>
 
-<!-- ────────────────────────── pipeline ────────────────────────── -->
+<!-- 01 pipeline -->
 <section class="section" id="pipeline">
   <div class="wrap">
     <header class="shead">
-      <p class="eyebrow">01 · How it reads</p>
-      <h2>Same input, same report. Every time.</h2>
+      <p class="label">01 / How it reads</p>
+      <h2>Same input, same report.</h2>
       <p class="sub">
-        One scan is one pass over a folder: parse, analyze, dedupe, score, print. No model decides
-        anything unless you invite one in, and the analysis is ordinary code you can read.
+        One scan is one pass over a folder: parse, analyze, dedupe, score, print. Nothing is decided
+        by a model unless you invite one in, and the analysis is ordinary code you can read.
       </p>
     </header>
 
-    <ol class="rail">
-      <li><span class="rail__n">1</span><h3>Resolve</h3><p>A folder, one <code>.md</code>, a zip or a git URL. Size caps and zip-traversal checks land before a single byte is read.</p><code class="node">resolve_input</code></li>
-      <li><span class="rail__n">2</span><h3>Parse</h3><p>Every file walked and classified: Python into an AST, config into JSON or YAML, markdown as text.</p><code class="node">build_context</code></li>
-      <li><span class="rail__n">3</span><h3>Analyze</h3><p>Twelve analyzers over the same context, all appending to one findings list. None of them can delete a finding.</p><code class="node">static_runner → 12 analyzers</code></li>
-      <li><span class="rail__n">4</span><h3>Merge</h3><p>Two analyzers, one problem: the finding is merged with both locations, not counted twice.</p><code class="node">deduplicate</code></li>
-      <li><span class="rail__n">5</span><h3>Forget what you accepted</h3><p>Anything already in your baseline never reaches the score. Later scans report only what is new.</p><code class="node">apply_baseline</code></li>
-      <li><span class="rail__n">6</span><h3>Score</h3><p>Severity points, times 1.3 if the skill ships executable scripts, capped at 100.</p><code class="node">score</code></li>
-      <li><span class="rail__n">7</span><h3>Print</h3><p>Terminal, JSON, Markdown or SARIF. The JSON shape is the contract other tooling builds on.</p><code class="node">report</code></li>
-    </ol>
+    <div class="flowwrap">
+      <ol class="flow">
+        <li>
+          <div><h3>Resolve</h3><p>A folder, one <code>.md</code>, a zip, or a git URL. Size caps and zip-traversal checks land before a byte is read.</p></div>
+          <code class="node">resolve_input</code>
+        </li>
+        <li>
+          <div><h3>Parse</h3><p>Every file walked and classified: Python into an AST, config into JSON or YAML, markdown as text.</p></div>
+          <code class="node">build_context</code>
+        </li>
+        <li class="flow__split">
+          <div><h3>Analyze</h3><p>Twelve analyzers read the same context and append to one findings list. None of them can delete a finding.</p></div>
+          <code class="node">static_runner <span class="arrow">to</span> 12 analyzers</code>
+        </li>
+        <li>
+          <div><h3>Merge</h3><p>Two analyzers, one problem: the finding merges with both locations instead of counting twice.</p></div>
+          <code class="node">deduplicate</code>
+        </li>
+        <li>
+          <div><h3>Forget what you accepted</h3><p>Anything in your baseline never reaches the score, so later scans report only what is new.</p></div>
+          <code class="node">apply_baseline</code>
+        </li>
+        <li>
+          <div><h3>Score</h3><p>Severity points, times 1.3 if the skill ships executable scripts, capped at 100.</p></div>
+          <code class="node">score</code>
+        </li>
+        <li>
+          <div><h3>Print</h3><p>Terminal, JSON, Markdown or SARIF. The JSON shape is the contract other tools build on.</p></div>
+          <code class="node">report</code>
+        </li>
+      </ol>
+    </div>
 
     <div class="analyzers">
-      <p class="eyebrow">What the twelve look for</p>
+      <p class="label">What the twelve look for</p>
       <ul class="chips">
         <li>Prompt injection</li><li>Anti-refusal</li><li>Data exfiltration</li><li>Privilege escalation</li>
         <li>Dangerous execution (AST)</li><li>Supply chain patterns</li><li>Dependencies</li><li>Shipped files</li>
@@ -139,22 +170,22 @@ uv run skillguard scan ./that-skill-you-found/</code></pre>
   </div>
 </section>
 
-<!-- ──────────────────────────── rules ──────────────────────────── -->
-<section class="section section--alt" id="rules">
+<!-- 02 rules -->
+<section class="section section--band" id="rules">
   <div class="wrap">
     <header class="shead">
-      <p class="eyebrow">02 · Coverage</p>
+      <p class="label">02 / Coverage</p>
       <h2>38 rules, ten categories, no black box</h2>
-      <p class="sub">Every finding names the rule that fired and the line it fired on. Filter the list.
-        This is the entire rule set, not a sample.</p>
+      <p class="sub">Every finding names the rule that fired and the line it fired on. This is the
+        entire rule set, so filter it and see for yourself.</p>
     </header>
 
     <div class="filter" role="group" aria-label="Filter rules by severity">
       <button class="fbtn is-on" type="button" data-filter="all">All <span class="fcount">38</span></button>
-      <button class="fbtn" type="button" data-filter="CRITICAL">Critical</button>
-      <button class="fbtn" type="button" data-filter="HIGH">High</button>
-      <button class="fbtn" type="button" data-filter="MEDIUM">Medium</button>
-      <button class="fbtn" type="button" data-filter="LOW">Low</button>
+      <button class="fbtn" type="button" data-filter="CRITICAL">Critical <span class="fcount">2</span></button>
+      <button class="fbtn" type="button" data-filter="HIGH">High <span class="fcount">26</span></button>
+      <button class="fbtn" type="button" data-filter="MEDIUM">Medium <span class="fcount">8</span></button>
+      <button class="fbtn" type="button" data-filter="LOW">Low <span class="fcount">2</span></button>
       <p class="filter__count" id="rules-visible" aria-live="polite">Showing 38 of 38</p>
     </div>
 
@@ -165,82 +196,87 @@ uv run skillguard scan ./that-skill-you-found/</code></pre>
           <tr><th scope="col">ID</th><th scope="col">Category</th><th scope="col">What it catches</th><th scope="col">Severity</th></tr>
         </thead>
         <tbody id="rules-body">
-          <tr data-sev="HIGH"><td class="rid">P1</td><td>Prompt injection</td><td>Instruction override attempt</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">P2</td><td>Prompt injection</td><td>Instruction to hide behaviour from the user</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">P3</td><td>Prompt injection</td><td>Instruction to transmit data to an external endpoint</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">AR1</td><td>Anti-refusal</td><td>Refusal suppression</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">AR2</td><td>Anti-refusal</td><td>Disclaimer or warning suppression</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">AR3</td><td>Anti-refusal</td><td>Safety policy nullification</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">E1</td><td>Data exfiltration</td><td>External transmission of data</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">E2</td><td>Data exfiltration</td><td>Environment variable harvesting</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="MEDIUM"><td class="rid">E3</td><td>Data exfiltration</td><td>Environment file access</td><td><span class="sev sev--medium">MEDIUM</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">E4</td><td>Data exfiltration</td><td>Shell upload of data to an external host</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="MEDIUM"><td class="rid">PE1</td><td>Privilege escalation</td><td>World-writable permissions</td><td><span class="sev sev--medium">MEDIUM</span></td></tr>
-          <tr data-sev="MEDIUM"><td class="rid">PE2</td><td>Privilege escalation</td><td>Elevated privilege execution</td><td><span class="sev sev--medium">MEDIUM</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">PE3</td><td>Privilege escalation</td><td>Credential file access</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="LOW"><td class="rid">SC1</td><td>Supply chain</td><td>Dependency has no version constraint</td><td><span class="sev sev--low">LOW</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">SC2</td><td>Supply chain</td><td>Remote script piped into a shell</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">SC3</td><td>Supply chain</td><td>Decoded payload executed</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">SC4</td><td>Supply chain</td><td>Dependency version has known vulnerabilities</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">SC6</td><td>Supply chain</td><td>Dependency name looks like a popular package</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">SC8</td><td>Supply chain</td><td>Compiled Python bytecode is shipped in the skill</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">SC9</td><td>Supply chain</td><td>Executable disguised as a document</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">SC10</td><td>Supply chain</td><td>Dependency source redirected</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="CRITICAL"><td class="rid">AST1</td><td>Dangerous execution</td><td><code>exec()</code> executes arbitrary code</td><td><span class="sev sev--critical">CRITICAL</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">AST2</td><td>Dangerous execution</td><td><code>eval()</code> evaluates arbitrary expressions</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">AST3</td><td>Dangerous execution</td><td>Dynamic import of a computed module name</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">AST4</td><td>Dangerous execution</td><td>Subprocess execution</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">AST5</td><td>Dangerous execution</td><td>Operating-system command execution</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="MEDIUM"><td class="rid">AST6</td><td>Dangerous execution</td><td><code>compile()</code> builds a code object</td><td><span class="sev sev--medium">MEDIUM</span></td></tr>
-          <tr data-sev="MEDIUM"><td class="rid">AST7</td><td>Dangerous execution</td><td>Dynamic attribute access hides the real call</td><td><span class="sev sev--medium">MEDIUM</span></td></tr>
-          <tr data-sev="CRITICAL"><td class="rid">AST8</td><td>Dangerous execution</td><td>Execution of a decoded or remote payload</td><td><span class="sev sev--critical">CRITICAL</span></td></tr>
-          <tr data-sev="MEDIUM"><td class="rid">LP1</td><td>MCP least privilege</td><td>Server implies a capability it does not declare</td><td><span class="sev sev--medium">MEDIUM</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">LP2</td><td>MCP least privilege</td><td>Server requests a wildcard permission</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="MEDIUM"><td class="rid">LP3</td><td>MCP least privilege</td><td>Server declares no capabilities</td><td><span class="sev sev--medium">MEDIUM</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">TP1</td><td>MCP tool poisoning</td><td>Hidden content in a tool description</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">TP2</td><td>MCP tool poisoning</td><td>Unicode deception in a tool description</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">TP3</td><td>MCP tool poisoning</td><td>Instruction-like text in a parameter description</td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="HIGH"><td class="rid">TM1</td><td>Tool misuse</td><td>Shell execution with <code>shell=True</code></td><td><span class="sev sev--high">HIGH</span></td></tr>
-          <tr data-sev="LOW"><td class="rid">TR1</td><td>Trigger abuse</td><td>Overly broad trigger description</td><td><span class="sev sev--low">LOW</span></td></tr>
-          <tr data-sev="MEDIUM"><td class="rid">TR2</td><td>Trigger abuse</td><td>Skill name shadows a built-in tool</td><td><span class="sev sev--medium">MEDIUM</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">P1</td><td>Prompt injection</td><td>Instruction override attempt</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">P2</td><td>Prompt injection</td><td>Instruction to hide behaviour from the user</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">P3</td><td>Prompt injection</td><td>Instruction to transmit data to an external endpoint</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">AR1</td><td>Anti-refusal</td><td>Refusal suppression</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">AR2</td><td>Anti-refusal</td><td>Disclaimer or warning suppression</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">AR3</td><td>Anti-refusal</td><td>Safety policy nullification</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">E1</td><td>Data exfiltration</td><td>External transmission of data</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">E2</td><td>Data exfiltration</td><td>Environment variable harvesting</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="MEDIUM"><td class="rid">E3</td><td>Data exfiltration</td><td>Environment file access</td><td><span class="tag tag--medium">MEDIUM</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">E4</td><td>Data exfiltration</td><td>Shell upload of data to an external host</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="MEDIUM"><td class="rid">PE1</td><td>Privilege escalation</td><td>World-writable permissions</td><td><span class="tag tag--medium">MEDIUM</span></td></tr>
+          <tr data-sev="MEDIUM"><td class="rid">PE2</td><td>Privilege escalation</td><td>Elevated privilege execution</td><td><span class="tag tag--medium">MEDIUM</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">PE3</td><td>Privilege escalation</td><td>Credential file access</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="LOW"><td class="rid">SC1</td><td>Supply chain</td><td>Dependency has no version constraint</td><td><span class="tag tag--low">LOW</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">SC2</td><td>Supply chain</td><td>Remote script piped into a shell</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">SC3</td><td>Supply chain</td><td>Decoded payload executed</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">SC4</td><td>Supply chain</td><td>Dependency version has known vulnerabilities</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">SC6</td><td>Supply chain</td><td>Dependency name looks like a popular package</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">SC8</td><td>Supply chain</td><td>Compiled Python bytecode is shipped in the skill</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">SC9</td><td>Supply chain</td><td>Executable disguised as a document</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">SC10</td><td>Supply chain</td><td>Dependency source redirected</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="CRITICAL"><td class="rid">AST1</td><td>Dangerous execution</td><td><code>exec()</code> executes arbitrary code</td><td><span class="tag tag--critical">CRITICAL</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">AST2</td><td>Dangerous execution</td><td><code>eval()</code> evaluates arbitrary expressions</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">AST3</td><td>Dangerous execution</td><td>Dynamic import of a computed module name</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">AST4</td><td>Dangerous execution</td><td>Subprocess execution</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">AST5</td><td>Dangerous execution</td><td>Operating-system command execution</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="MEDIUM"><td class="rid">AST6</td><td>Dangerous execution</td><td><code>compile()</code> builds a code object</td><td><span class="tag tag--medium">MEDIUM</span></td></tr>
+          <tr data-sev="MEDIUM"><td class="rid">AST7</td><td>Dangerous execution</td><td>Dynamic attribute access hides the real call</td><td><span class="tag tag--medium">MEDIUM</span></td></tr>
+          <tr data-sev="CRITICAL"><td class="rid">AST8</td><td>Dangerous execution</td><td>Execution of a decoded or remote payload</td><td><span class="tag tag--critical">CRITICAL</span></td></tr>
+          <tr data-sev="MEDIUM"><td class="rid">LP1</td><td>MCP least privilege</td><td>Server implies a capability it does not declare</td><td><span class="tag tag--medium">MEDIUM</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">LP2</td><td>MCP least privilege</td><td>Server requests a wildcard permission</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="MEDIUM"><td class="rid">LP3</td><td>MCP least privilege</td><td>Server declares no capabilities</td><td><span class="tag tag--medium">MEDIUM</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">TP1</td><td>MCP tool poisoning</td><td>Hidden content in a tool description</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">TP2</td><td>MCP tool poisoning</td><td>Unicode deception in a tool description</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">TP3</td><td>MCP tool poisoning</td><td>Instruction-like text in a parameter description</td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="HIGH"><td class="rid">TM1</td><td>Tool misuse</td><td>Shell execution with <code>shell=True</code></td><td><span class="tag tag--high">HIGH</span></td></tr>
+          <tr data-sev="LOW"><td class="rid">TR1</td><td>Trigger abuse</td><td>Overly broad trigger description</td><td><span class="tag tag--low">LOW</span></td></tr>
+          <tr data-sev="MEDIUM"><td class="rid">TR2</td><td>Trigger abuse</td><td>Skill name shadows a built-in tool</td><td><span class="tag tag--medium">MEDIUM</span></td></tr>
         </tbody>
       </table>
     </div>
     <p class="fine">Rule ids are stable, which is what makes them usable: your baseline file and every
-      SARIF result key on them, so renaming a rule would break your history.</p>
+      SARIF result key on them, so renaming one would break your history.</p>
   </div>
 </section>
 
-<!-- ─────────────────────────── scoring ─────────────────────────── -->
+<!-- 03 scoring -->
 <section class="section" id="scoring">
   <div class="wrap">
     <header class="shead">
-      <p class="eyebrow">03 · The score</p>
+      <p class="label">03 / The score</p>
       <h2>Arithmetic, not a vibe.</h2>
       <p class="sub">A model never touches this. Add the points, apply the multiplier, clamp, read the
-        band. You can reproduce any score on paper.</p>
+        band. Every score is reproducible by hand.</p>
     </header>
 
     <div class="spec-grid">
       <div class="panel">
         <h3>Points per finding</h3>
         <table class="kv">
-          <tr><td><span class="sev sev--critical">CRITICAL</span></td><td class="num">50</td></tr>
-          <tr><td><span class="sev sev--high">HIGH</span></td><td class="num">25</td></tr>
-          <tr><td><span class="sev sev--medium">MEDIUM</span></td><td class="num">10</td></tr>
-          <tr><td><span class="sev sev--low">LOW</span></td><td class="num">5</td></tr>
+          <tr><td><span class="tag tag--critical">CRITICAL</span></td><td class="num">50</td></tr>
+          <tr><td><span class="tag tag--high">HIGH</span></td><td class="num">25</td></tr>
+          <tr><td><span class="tag tag--medium">MEDIUM</span></td><td class="num">10</td></tr>
+          <tr><td><span class="tag tag--low">LOW</span></td><td class="num">5</td></tr>
         </table>
-        <p class="body">Findings you baselined are dropped before the sum, not scored and hidden, so
-          accepting one is a real decision rather than a cosmetic one.</p>
+        <p class="fine">Baselined findings are dropped before the sum, not scored and hidden, so
+          accepting one is a real decision.</p>
       </div>
 
       <div class="panel">
-        <h3>Then the multiplier</h3>
-        <div class="formula">
-          <code>score = min(100, Σ points × 1.3)</code>
+        <h3>The multiplier</h3>
+        <p class="body">Everything weighs 30% more when the skill ships scripts that can execute:</p>
+        <p class="ext"><code>.py .sh .bash .zsh .js .mjs .cjs .ts .rb .pl .ps1 .bat</code></p>
+        <div class="worked">
+          <p class="label">Worked example</p>
+          <ul class="calc">
+            <li><span>1 CRITICAL + 1 HIGH</span><code>50 + 25 = 75</code></li>
+            <li><span>ships a .py script</span><code>75 x 1.3 = 97</code></li>
+            <li><span>band 81 to 100</span><code>CRITICAL, DO_NOT_INSTALL, exit 1</code></li>
+          </ul>
         </div>
-        <p class="body">Everything weighs 30% more when the skill ships scripts that can actually
-          execute: <code>.py .sh .bash .zsh .js .mjs .cjs .ts .rb .pl .ps1 .bat</code>.</p>
       </div>
 
       <div class="panel panel--wide">
@@ -248,10 +284,10 @@ uv run skillguard scan ./that-skill-you-found/</code></pre>
         <table class="bands">
           <thead><tr><th>Score</th><th>Severity</th><th>Recommendation</th><th>Exit</th></tr></thead>
           <tbody>
-            <tr><td class="num">≤ 20</td><td><span class="sev sev--low">LOW</span></td><td><span class="rec rec--safe">SAFE</span></td><td class="num">0</td></tr>
-            <tr><td class="num">21 to 50</td><td><span class="sev sev--medium">MEDIUM</span></td><td><span class="rec rec--caution">CAUTION</span></td><td class="num">0</td></tr>
-            <tr><td class="num">51 to 80</td><td><span class="sev sev--high">HIGH</span></td><td><span class="rec rec--danger">DO_NOT_INSTALL</span></td><td class="num">1</td></tr>
-            <tr><td class="num">81 to 100</td><td><span class="sev sev--critical">CRITICAL</span></td><td><span class="rec rec--danger">DO_NOT_INSTALL</span></td><td class="num">1</td></tr>
+            <tr><td class="num">0 to 20</td><td><span class="tag tag--low">LOW</span></td><td class="rec rec--safe">SAFE</td><td class="num">0</td></tr>
+            <tr><td class="num">21 to 50</td><td><span class="tag tag--medium">MEDIUM</span></td><td class="rec rec--caution">CAUTION</td><td class="num">0</td></tr>
+            <tr><td class="num">51 to 80</td><td><span class="tag tag--high">HIGH</span></td><td class="rec rec--danger">DO_NOT_INSTALL</td><td class="num">1</td></tr>
+            <tr><td class="num">81 to 100</td><td><span class="tag tag--critical">CRITICAL</span></td><td class="rec rec--danger">DO_NOT_INSTALL</td><td class="num">1</td></tr>
           </tbody>
         </table>
         <p class="fine">Exit 2 means the scan itself failed. A crash and a hostile skill are different
@@ -261,18 +297,19 @@ uv run skillguard scan ./that-skill-you-found/</code></pre>
   </div>
 </section>
 
-<!-- ──────────────────────────── ship ──────────────────────────── -->
-<section class="section section--alt" id="ship">
+<!-- 04 ship it -->
+<section class="section section--ink" id="ship">
   <div class="wrap">
     <header class="shead">
-      <p class="eyebrow">04 · Ship it</p>
+      <p class="label">04 / Ship it</p>
       <h2>Make the score a gate.</h2>
-      <p class="sub">Two commands end the argument: scan the repo on every push, and fail the build
-        when the score crosses 50.</p>
+      <p class="sub">Scan the repo on every push, and fail the build when the score crosses 50. The
+        finding shows up in the pull request as a code scanning alert, next to the line that caused it.</p>
     </header>
 
-    <div class="cmd" data-copy-root>
-      <div class="cmd__bar"><span class="cmd__title">.github/workflows/scan-skill.yml</span>
+    <div class="cmd cmd--onInk" data-copy-root>
+      <div class="cmd__bar">
+        <span class="cmd__title">.github/workflows/scan-skill.yml</span>
         <button class="copy" type="button" data-copy="#ci-snippet" aria-label="Copy workflow steps">copy</button>
       </div>
       <pre id="ci-snippet"><code>- uses: astral-sh/setup-uv@v5
@@ -288,20 +325,23 @@ uv run skillguard scan ./that-skill-you-found/</code></pre>
 - run: uv run skillguard scan .</code></pre>
     </div>
 
-    <p class="fine">
+    <p class="fine fine--onInk">
       Reports come out as <code>terminal</code>, <code>json</code>, <code>markdown</code> or
-      <code>sarif</code>. Add <code>--fail-on-findings</code> if you would rather fail on any finding
-      at all. The complete workflow lives in
+      <code>sarif</code>. Add <code>--fail-on-findings</code> to fail on any finding at all. The
+      complete workflow lives in
       <a href="https://github.com/NilLab-agi/SkillGuard/blob/main/docs/examples/scan-skill.yml">docs/examples/scan-skill.yml</a>.
     </p>
 
-    <div class="callout">
-      <p>Scan the next skill you were about to install. If it comes back clean, you lost
-        thirty seconds. If it does not, you just avoided a very bad afternoon, and you have the exact
-        line number to prove it.</p>
-      <div class="callout__cta">
-        <a class="btn btn--primary" href="https://github.com/NilLab-agi/SkillGuard">Clone SkillGuard</a>
-        <a class="btn" href="https://github.com/NilLab-agi/SkillGuard/blob/main/docs/RULES.md">Browse the rules</a>
+    <div class="closer">
+      <p>Scan the next skill you were about to install. If it comes back clean you lost thirty
+        seconds. If it does not, you just avoided a very bad afternoon, and you have the line number
+        to prove it.</p>
+      <div class="closer__cta">
+        <a class="btn btn--cream" href="https://github.com/NilLab-agi/SkillGuard">
+          <svg class="gh" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+          Clone SkillGuard
+        </a>
+        <a class="btn btn--outlineCream" href="https://github.com/NilLab-agi/SkillGuard/blob/main/docs/RULES.md">Browse the rules</a>
       </div>
     </div>
   </div>
@@ -309,13 +349,25 @@ uv run skillguard scan ./that-skill-you-found/</code></pre>
 </main>
 
 <footer class="foot">
-  <div class="wrap foot__base">
-    <div>
-      <a class="brand" href="#top"><span class="brand__name">SkillGuard</span></a>
-      <p class="fine">Static analysis for agent skills, MCP servers and extensions. Built by NilLab ·
-        Nilay Mallik.</p>
+  <div class="wrap foot__in">
+    <div class="foot__brand">
+      <img class="brand__logo" src="assets/logo-96.png" srcset="assets/logo-96.png 1x, assets/logo-256.png 2x" width="30" height="30" alt="">
+      <div>
+        <p class="foot__name">SkillGuard</p>
+        <p class="fine">Static analysis for agent skills, MCP servers and extensions.</p>
+      </div>
     </div>
-    <p class="fine" id="yr"></p>
+    <div class="foot__meta">
+      <p class="fine">Built by <a href="https://nilaymallik.dev" rel="me noopener">Nilay</a></p>
+      <a class="ghlink" href="https://github.com/NilLab-agi/SkillGuard">
+        <svg class="gh" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        <span>Source on GitHub</span>
+      </a>
+      <p class="fine" id="yr"></p>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="fine foot__note">Illustrative scan output. No trackers, no cookies, no analytics on this page.</p>
   </div>
 </footer>
 <script src="app.js"></script>

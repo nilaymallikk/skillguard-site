@@ -158,7 +158,9 @@ code, pre, kbd { font-family: var(--mono); font-size: .88em; }
   align-items: start;
 }
 .hero__copy > * + * { margin-top: 1.05rem; }
-.hero__mark { display: block; width: 104px; height: 104px; margin-bottom: 1.4rem; }
+.hero__top { display: flex; align-items: center; gap: clamp(1rem, 2.2vw, 1.9rem); }
+.hero__top h1 { flex: 1 1 auto; min-width: 0; }
+.hero__mark { display: block; flex: none; width: 104px; height: 104px; }
 .hero h1 {
   font-size: clamp(1.85rem, 4.3vw, 2.9rem);
   font-weight: 500; line-height: 1.16; letter-spacing: -0.045em;
@@ -200,7 +202,7 @@ code, pre, kbd { font-family: var(--mono); font-size: .88em; }
 /* verdict card */
 .verdict {
   border: 1px solid var(--dark-line); border-radius: var(--r-lg);
-  background: var(--dark); box-shadow: var(--shadow-dark); overflow: hidden; position: relative;
+  background: var(--dark); box-shadow: var(--shadow-dark); overflow: clip; position: relative;
   color: var(--cream);
 }
 .verdict__head {
@@ -394,14 +396,11 @@ html.js-anim .gauge li { opacity: 0; transform: scaleX(.3); transform-origin: le
 
 /* footer */
 .foot { border-top: 1px solid var(--line); background: var(--paper); padding: clamp(1.75rem, 3vw, 2.5rem) 0 1.25rem; }
-.foot__in { display: grid; grid-template-columns: minmax(0, 1.6fr) repeat(2, minmax(0, 1fr)) auto; gap: 2rem; align-items: start; }
-.foot__col { display: flex; flex-direction: column; gap: .5rem; }
-.foot__col h4 { font: 500 .68rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
-.foot__col a { color: var(--ink-2); text-decoration: none; font-size: .84rem; }
-.foot__col a:hover { color: var(--ink); text-decoration: underline; text-decoration-thickness: 2px; }
-.foot__brand { display: flex; align-items: flex-start; gap: 1.1rem; max-width: 52ch; }
+.foot__in { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; }
+.foot__brand { display: flex; align-items: flex-start; gap: 1.1rem; max-width: 64ch; }
 .foot__brand .brand__logo { width: 52px; height: 52px; }
-.foot__brand .fine { margin-top: .15rem; }
+.foot__brand .fine { margin-top: .2rem; }
+.foot__name { font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
 .foot__meta { display: flex; flex-direction: column; gap: .5rem; align-items: flex-end; text-align: right; }
 .foot__meta .fine { margin: 0; }
 
@@ -423,14 +422,20 @@ html.js-anim .gauge li { opacity: 0; transform: scaleX(.3); transform-origin: le
 html.js-anim .flowwrap::before { transform: scaleY(0); transition: transform 1.2s cubic-bezier(.3,.9,.2,1) .1s; }
 html.js-anim .flowwrap.is-in::before { transform: scaleY(1); }
 
-/* one scan pass across the verdict card, like the scanner reading it */
+/* one scan pass across the verdict card, like the scanner reading it.
+   The gradient moves inside a full size overlay, so nothing is ever laid out
+   outside the card. */
 .verdict::after {
-  content: ''; position: absolute; top: 0; bottom: 0; left: -35%; width: 35%;
-  pointer-events: none; opacity: 0;
-  background: linear-gradient(90deg, transparent, rgba(253, 248, 241, .11), transparent);
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background-image: linear-gradient(100deg, transparent 40%, rgba(253, 248, 241, .13) 50%, transparent 60%);
+  background-size: 320% 100%;
+  background-position: 140% 0;
 }
-html.js-anim .verdict.is-in::after { animation: sweep 1.05s cubic-bezier(.45,0,.2,1) .2s 1; opacity: 1; }
-@keyframes sweep { from { transform: translateX(0); } to { transform: translateX(390%); } }
+html.js-anim .verdict.is-in::after { animation: sweep 1.1s cubic-bezier(.45, 0, .2, 1) .2s 1; opacity: 1; }
+@keyframes sweep {
+  from { background-position: 140% 0; }
+  to { background-position: -40% 0; }
+}
 
 /* the rule list arrives row by row */
 html.js-anim .rules tbody tr { opacity: 0; transform: translateY(5px); }
@@ -461,8 +466,7 @@ html.js-anim .table-scroll.is-in .rules tbody tr {
 @media (max-width: 1080px) {
   .hero__grid { grid-template-columns: minmax(0, 1fr); }
   .spec-grid { grid-template-columns: minmax(0, 1fr); }
-  .foot__in { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .foot__meta { align-items: flex-start; text-align: left; }
+  .foot__in { align-items: flex-start; }
 }
 
 @media (max-width: 720px) {
@@ -472,8 +476,9 @@ html.js-anim .table-scroll.is-in .rules tbody tr {
   .section > .wrap > * { grid-column: 1; }
   .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
   .nav__links { gap: 1.1rem; }
-  .hero__mark { width: 76px; height: 76px; margin-bottom: 1.1rem; }
-  .foot__in { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .hero__top { flex-direction: column; align-items: flex-start; gap: .9rem; }
+  .hero__mark { width: 76px; height: 76px; }
+  .foot__in { gap: 1.5rem; }
   /* the flow gets a narrower spine */
   .flow { padding-left: 1.25rem; }
   .flow li { grid-template-columns: minmax(0, 1fr); gap: .6rem; }

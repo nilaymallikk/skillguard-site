@@ -71,15 +71,16 @@ ok('transparent mark is the page logo', html.includes('assets/logo-mark-96.png')
 ok('mark files exist', existsSync(mark) && existsSync(mark2x), 'assets/logo-mark-96.png and assets/logo-mark-256.png');
 ok('solid disc kept for favicon and og:image',
   /rel="icon" href="assets\/logo-96\.png"/.test(html) && existsSync(logo) && existsSync(logo2x));
-ok('the wordmark is gone', !html.includes('brand__name') && !html.includes('foot__name'));
+ok('the nav has no wordmark', !html.includes('brand__name'));
 ok('github mark is inline svg', (html.match(/viewBox="0 0 16 16"/g) ?? []).length >= 1,
   `${(html.match(/viewBox="0 0 16 16"/g) ?? []).length} marks`);
 ok('nav is one centred group with the github link',
   /class="wrap nav__in"[\s\S]*nav__links[\s\S]*nav__gh[\s\S]*GitHub/.test(html) && !html.includes('nav__end'));
 ok('hero mark sits above the headline',
   html.indexOf('hero__mark') > -1 && html.indexOf('hero__mark') < html.indexOf('<h1>'));
-ok('footer carries the repository and elsewhere columns',
-  /foot__col[\s\S]*Repository[\s\S]*foot__col[\s\S]*Elsewhere/.test(html));
+ok('footer has no link lists', !html.includes('foot__col') && !html.includes('Repository') && !html.includes('Elsewhere'));
+ok('footer names the product and credits Nilay',
+  /foot__name[\s\S]*SkillGuard[\s\S]*Built by/.test(html));
 ok('scroll progress line is present', html.includes('class="progress"'));
 ok('github repo is linked', html.includes('https://github.com/NilLab-agi/SkillGuard'));
 ok('built by Nilay links to nilaymallik.dev',

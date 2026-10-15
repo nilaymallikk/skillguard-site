@@ -43,8 +43,10 @@
 <section class="hero">
   <div class="wrap hero__grid">
     <div class="hero__copy">
-      <img class="hero__mark" src="assets/logo-mark-96.png" srcset="assets/logo-mark-96.png 1x, assets/logo-mark-256.png 2x" width="104" height="104" alt="SkillGuard">
-      <h1>Read the skill before you trust&nbsp;it.</h1>
+      <div class="hero__top">
+        <img class="hero__mark" src="assets/logo-mark-96.png" srcset="assets/logo-mark-96.png 1x, assets/logo-mark-256.png 2x" width="104" height="104" alt="SkillGuard">
+        <h1>Read the skill before you trust&nbsp;it.</h1>
+      </div>
       <p class="lede">
         An agent skill is a stranger's instructions running with your credentials. SkillGuard reads
         the markdown, parses the Python, checks the JSON and YAML, and hands back a verdict with the
@@ -331,23 +333,11 @@ uv run skillguard scan ./that-skill-you-found/</code></pre>
       <a class="brand" href="#top" aria-label="SkillGuard, back to top">
         <img class="brand__logo" src="assets/logo-mark-96.png" srcset="assets/logo-mark-96.png 1x, assets/logo-mark-256.png 2x" width="52" height="52" alt="">
       </a>
-      <p class="fine">Static analysis for agent skills, MCP servers and extensions. Nothing runs during a scan, and nothing leaves your machine unless you ask for it.</p>
+      <div>
+        <p class="foot__name">SkillGuard</p>
+        <p class="fine">Static analysis for agent skills, MCP servers and extensions. Nothing runs during a scan, and nothing leaves your machine unless you ask for it. 38 rules, four report formats, one risk score.</p>
+      </div>
     </div>
-    <nav class="foot__col" aria-label="Repository">
-      <h4>Repository</h4>
-      <a href="https://github.com/NilLab-agi/SkillGuard">README</a>
-      <a href="https://github.com/NilLab-agi/SkillGuard/blob/main/docs/RULES.md">Rule reference</a>
-      <a href="https://github.com/NilLab-agi/SkillGuard/blob/main/docs/JSON_SCHEMA.md">JSON schema</a>
-      <a href="https://github.com/NilLab-agi/SkillGuard/blob/main/docs/examples/scan-skill.yml">CI example</a>
-      <a href="https://github.com/NilLab-agi/SkillGuard/blob/main/LICENSE">License</a>
-    </nav>
-    <nav class="foot__col" aria-label="Elsewhere">
-      <h4>Elsewhere</h4>
-      <a href="https://github.com/NilLab-agi">NilLab-agi</a>
-      <a href="https://docs.astral.sh/uv/">uv</a>
-      <a href="https://langchain-ai.github.io/langgraph/">LangGraph</a>
-      <a href="https://osv.dev">osv.dev</a>
-    </nav>
     <div class="foot__meta">
       <p class="fine">Built by <a href="https://nilaymallik.dev" rel="me noopener">Nilay</a></p>
       <p class="fine" id="yr"></p>

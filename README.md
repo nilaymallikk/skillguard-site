@@ -3,7 +3,7 @@
 A static landing page for [NilLab-agi/SkillGuard](https://github.com/NilLab-agi/SkillGuard): a
 static security scanner for agent skills, MCP servers and agent extensions.
 
-**Live: <https://skillguardscan.vercel.app>**
+**Live: <https://skillguardscan.vercel.app>** · **Repo: <https://github.com/nilaymallikk/skillguard-site>**
 
 No build step, no framework, no dependencies. Open `index.html` directly or serve the folder from
 any static host.
@@ -36,6 +36,21 @@ every class used in the HTML has a CSS rule and every CSS class has markup behin
 parses without duplicate top level declarations, that the logo, the GitHub mark and the
 `nilaymallik.dev` credit are present, that the copy cut on request stays cut, and that no dash
 character (U+2013 or U+2014) appears in the HTML, CSS or JS.
+
+## Repo
+
+This folder is its own git repository since the landing page was split out of the local
+`/data/Projects` tree, and its history came with it (four commits, filtered with
+`git filter-branch --subdirectory-filter` on a throwaway clone so the parent tree was untouched).
+
+```bash
+git push                # goes to nilaymallikk/skillguard-site
+```
+
+`NilLab-agi/SkillGuard-site` could not be created: the `nilaymallikk` account has push access to
+`NilLab-agi/SkillGuard` but no repository creation rights in the org. Either create the empty repo in
+the org and push this history to it, or use GitHub's "Transfer ownership" on this repo and move it
+under `NilLab-agi`.
 
 ## Design
 

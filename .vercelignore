@@ -1,0 +1,6 @@
+# keep dev-only files and credentials out of the public deployment
+check.mjs
+README.md
+.env*
+.gitignore
+.vercel

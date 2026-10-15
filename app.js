@@ -24,7 +24,23 @@ document.querySelectorAll('[data-copy]').forEach((btn) => {
   });
 });
 
-// ── reveal on scroll ─────────────────────────────────────────
+// ── reveal on scroll, plus the two bits of motion inside the verdict card ──
+// the score counts up once, the way an instrument settles
+const scoreEl = document.querySelector('.verdict__num');
+function countUp() {
+  if (!scoreEl || reduceMotion) return;
+  const target = parseInt(scoreEl.textContent.trim(), 10);
+  if (!Number.isFinite(target)) return;
+  const started = performance.now();
+  const tick = (now) => {
+    const progress = Math.min((now - started) / 620, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    scoreEl.textContent = String(Math.round(target * eased));
+    if (progress < 1) requestAnimationFrame(tick);
+  };
+  scoreEl.textContent = '0';
+  requestAnimationFrame(tick);
+}
 const revealTargets = [
   '.verdict',
   '.shead',
@@ -47,8 +63,9 @@ if (reduceMotion || !('IntersectionObserver' in window)) {
       if (!entry.isIntersecting) return;
       const el = entry.target;
       // stagger siblings so a row of cards does not pop as one block
-      el.style.transitionDelay = `${Math.min([...el.parentElement.children].indexOf(el), 5) * 60}ms`;
+      el.style.transitionDelay = `${Math.min([...el.parentElement.children].indexOf(el), 6) * 55}ms`;
       el.classList.add('is-in');
+      if (el.classList.contains('verdict')) countUp();
       io.unobserve(el);
     });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
@@ -81,3 +98,9 @@ buttons.forEach((btn) => {
 });
 
 document.getElementById('yr').textContent = `© ${new Date().getFullYear()} NilLab`;
+
+// the nav picks up a shadow once the page moves
+const nav = document.querySelector('.nav');
+const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 8);
+onScroll();
+addEventListener('scroll', onScroll, { passive: true });

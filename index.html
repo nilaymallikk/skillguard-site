@@ -16,7 +16,7 @@
 <meta property="og:image" content="assets/logo-256.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -24,10 +24,6 @@
 
 <header class="nav">
   <div class="wrap nav__in">
-    <a class="brand" href="#top">
-      <img class="brand__logo" src="assets/logo-96.png" srcset="assets/logo-96.png 1x, assets/logo-256.png 2x" width="34" height="34" alt="">
-      <span class="brand__name">SkillGuard</span>
-    </a>
     <nav class="nav__links" aria-label="Sections">
       <a href="#rules">Rules</a>
       <a href="#scoring">Score</a>
@@ -37,6 +33,9 @@
       <a class="btn btn--github" href="https://github.com/NilLab-agi/SkillGuard">
         <svg class="gh" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
         GitHub
+      </a>
+      <a class="brand" href="#top" aria-label="SkillGuard, back to top">
+        <img class="brand__logo" src="assets/logo-mark-96.png" srcset="assets/logo-mark-96.png 1x, assets/logo-mark-256.png 2x" width="48" height="48" alt="">
       </a>
     </div>
   </div>
@@ -49,7 +48,6 @@
 <section class="hero">
   <div class="wrap hero__grid">
     <div class="hero__copy">
-      <p class="label">Static analysis, zero execution</p>
       <h1>Read the skill before you trust&nbsp;it.</h1>
       <p class="lede">
         An agent skill is a stranger's instructions running with your credentials. SkillGuard reads
@@ -69,10 +67,6 @@ uv run skillguard scan ./that-skill-you-found/</code></pre>
       </div>
 
       <div class="hero__cta">
-        <a class="btn btn--solid" href="https://github.com/NilLab-agi/SkillGuard">
-          <svg class="gh" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-          Get it on GitHub
-        </a>
         <a class="btn" href="#rules">See what gets caught</a>
       </div>
 
@@ -331,19 +325,6 @@ uv run skillguard scan ./that-skill-you-found/</code></pre>
       complete workflow lives in
       <a href="https://github.com/NilLab-agi/SkillGuard/blob/main/docs/examples/scan-skill.yml">docs/examples/scan-skill.yml</a>.
     </p>
-
-    <div class="closer">
-      <p>Scan the next skill you were about to install. If it comes back clean you lost thirty
-        seconds. If it does not, you just avoided a very bad afternoon, and you have the line number
-        to prove it.</p>
-      <div class="closer__cta">
-        <a class="btn btn--cream" href="https://github.com/NilLab-agi/SkillGuard">
-          <svg class="gh" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-          Clone SkillGuard
-        </a>
-        <a class="btn btn--outlineCream" href="https://github.com/NilLab-agi/SkillGuard/blob/main/docs/RULES.md">Browse the rules</a>
-      </div>
-    </div>
   </div>
 </section>
 </main>
@@ -351,23 +332,13 @@ uv run skillguard scan ./that-skill-you-found/</code></pre>
 <footer class="foot">
   <div class="wrap foot__in">
     <div class="foot__brand">
-      <img class="brand__logo" src="assets/logo-96.png" srcset="assets/logo-96.png 1x, assets/logo-256.png 2x" width="30" height="30" alt="">
-      <div>
-        <p class="foot__name">SkillGuard</p>
-        <p class="fine">Static analysis for agent skills, MCP servers and extensions.</p>
-      </div>
+      <img class="brand__logo" src="assets/logo-mark-96.png" srcset="assets/logo-mark-96.png 1x, assets/logo-mark-256.png 2x" width="44" height="44" alt="">
+      <p class="fine">Static analysis for agent skills, MCP servers and extensions.</p>
     </div>
     <div class="foot__meta">
       <p class="fine">Built by <a href="https://nilaymallik.dev" rel="me noopener">Nilay</a></p>
-      <a class="ghlink" href="https://github.com/NilLab-agi/SkillGuard">
-        <svg class="gh" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-        <span>Source on GitHub</span>
-      </a>
       <p class="fine" id="yr"></p>
     </div>
-  </div>
-  <div class="wrap">
-    <p class="fine foot__note">Illustrative scan output. No trackers, no cookies, no analytics on this page.</p>
   </div>
 </footer>
 <script src="app.js"></script>

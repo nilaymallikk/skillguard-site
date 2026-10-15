@@ -32,8 +32,10 @@ node check.mjs
 
 Asserts the facts that came from the repo (38 rules, 10 categories, severity mix, unique ids), that
 the flow diagram has one node name per step, that every anchor and `data-copy` target resolves, that
-every class used in the HTML has a CSS rule, that the logo, the GitHub mark and the `nilaymallik.dev`
-credit are present, and that no dash character (U+2013 or U+2014) appears in the HTML, CSS or JS.
+every class used in the HTML has a CSS rule and every CSS class has markup behind it, that `app.js`
+parses without duplicate top level declarations, that the logo, the GitHub mark and the
+`nilaymallik.dev` credit are present, that the copy cut on request stays cut, and that no dash
+character (U+2013 or U+2014) appears in the HTML, CSS or JS.
 
 ## Design
 
@@ -42,28 +44,42 @@ Cream paper and black ink, both taken from the logo: paper `#fdf8f1`, ink `#100e
 (CRITICAL `#9c1c1c`, HIGH `#8a4a10`, MEDIUM `#75570a`, LOW `#1b5b34`), lit to coral inside the black
 panel. Links are ink with a drawn underline rather than blue, so the page holds to two colours.
 
-Type is Newsreader for display headings, IBM Plex Sans for text and UI, IBM Plex Mono for every
-structural marker: labels, rule ids, node names, numbers, code.
+One typeface throughout: **JetBrains Mono**, at three weights. Hierarchy comes from size and weight
+rather than from mixing families, which is why the headings are smaller than a serif display would
+need to be and the body sits at 16px with a 1.75 line height.
 
 The two heavy blocks are the dark ones: the scan verdict card in the hero, with a ten segment gauge
 instead of a progress bar, and the code blocks. Section 04 is a full black band, which is where the
 CI gate lives.
 
-`SkillGuardLogo.png` is the original upload (1254x1254, 826 KB). The page uses a 96px and a 256px
-derivative in `assets/` (8 KB and 38 KB), so the full size original never ships to a browser. It is
-excluded from the deployment by `.vercelignore`, and the derivatives are used for the favicon, the
-apple touch icon and `og:image`.
+`SkillGuardLogo.png` is the original upload (1254x1254, 826 KB, a cream horse on a black plate). Two
+kinds of derivative ship:
+
+- `assets/logo-mark-*.png` are transparent, with the plate keyed out and the horse recoloured to ink,
+  so the mark sits directly on the cream paper in the nav and the footer.
+- `assets/logo-96.png` and `logo-256.png` keep the solid disc, because a favicon and an `og:image`
+  need to read on a light or a dark background.
+
+The original is versioned in git but excluded from the deployment, so a browser never pulls 826 KB.
 
 Colour pairs were checked against WCAG AA: 21 combinations of text and background clear 4.5:1 (3:1
 for the large score figure), including the coloured tags on their tints, the faint text on black, and
 the fine print on all three cream tones.
 
+Motion is deliberately small: the gauge fills left to right when the card lands, the score counts up
+once, sections fade up on scroll, the nav picks up a shadow after 8px of scroll, and buttons lift by
+1px on hover. Everything is off under `prefers-reduced-motion` and in print.
+
 ## Page structure
 
 Hero (install command and the verdict card) → 01 How it reads (the seven node flow) → 02 Coverage
 (all 38 rules, filterable) → 03 The score (points, the multiplier, a worked example, the bands) →
-04 Ship it (the CI gate, on black). The nav holds `Rules`, `Score`, `Ship it` and the GitHub link;
-the footer carries the credit and the source link.
+04 Ship it (the CI gate, on black).
+
+The nav centres `Rules`, `Score`, `Ship it` on the page and groups the GitHub button and the horse
+mark on the right, with no wordmark. The hero carries one button, `See what gets caught`, because the
+nav already holds the GitHub link. The footer is the mark, one line of description, `Built by Nilay`
+linked to nilaymallik.dev, and the copyright.
 
 ## Where the content came from
 

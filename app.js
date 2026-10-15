@@ -24,6 +24,8 @@ document.querySelectorAll('[data-copy]').forEach((btn) => {
   });
 });
 
+document.documentElement.classList.add('js-anim');
+
 // ── reveal on scroll, plus the two bits of motion inside the verdict card ──
 // the score counts up once, the way an instrument settles
 const scoreEl = document.querySelector('.verdict__num');
@@ -44,6 +46,7 @@ function countUp() {
 const revealTargets = [
   '.verdict',
   '.shead',
+  '.flowwrap',
   '.flow li',
   '.analyzers',
   '.table-scroll',
@@ -72,6 +75,11 @@ if (reduceMotion || !('IntersectionObserver' in window)) {
   targets.forEach((el) => { el.classList.add('reveal'); io.observe(el); });
 }
 
+// stagger the rule rows so the list arrives as a list, not a block
+document.querySelectorAll('#rules-body tr').forEach((row, i) => {
+  row.style.setProperty('--i', String(Math.min(i, 16)));
+});
+
 // ── rule filter ──────────────────────────────────────────────
 const rows = [...document.querySelectorAll('#rules-body tr')];
 const counter = document.getElementById('rules-visible');
@@ -99,8 +107,20 @@ buttons.forEach((btn) => {
 
 document.getElementById('yr').textContent = `© ${new Date().getFullYear()} NilLab`;
 
-// the nav picks up a shadow once the page moves
+// the nav picks up a shadow once the page moves, and the line under it tracks reading position
 const nav = document.querySelector('.nav');
-const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 8);
+const progress = document.querySelector('.progress');
+let ticking = false;
+const onScroll = () => {
+  const scrolled = window.scrollY;
+  nav.classList.toggle('is-scrolled', scrolled > 8);
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  if (progress) progress.style.transform = `scaleX(${scrollable > 0 ? Math.min(scrolled / scrollable, 1) : 0})`;
+  ticking = false;
+};
 onScroll();
-addEventListener('scroll', onScroll, { passive: true });
+addEventListener('scroll', () => {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(onScroll);
+}, { passive: true });
